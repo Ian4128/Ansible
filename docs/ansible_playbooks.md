@@ -15,6 +15,8 @@
       name: apache2
       state: latest
 ```
+<br />
+
 ### Playbook explained
 Indentation is very important in `.yaml.` files. every Tab needs to be 2 spaces.<br />
 We'll divide the codeblock in two pieces:
@@ -55,7 +57,7 @@ We'll divide the codeblock in two pieces:
 
 -   `--ask-become-pass`: this parameter will ask you the sudo password of the remote machines.
 -   `install_apache.yaml`: The name of the playbook you want to run.
-<br /><br />
+<br /><br /><br />
 
 ## Removing packages
 ### Example playbook
@@ -72,7 +74,7 @@ We'll divide the codeblock in two pieces:
       name: apache2
       state: absent
 ```
-<br /><br />
+<br />
 
 ### Remove package
 -   `state: absent`: Will remove the given package(s) from all machines. In this case `apache2` will be removed
