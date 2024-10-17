@@ -1,7 +1,7 @@
 # Ansible docs
 
 ### check if ssh connection is possible to all machines in inventory file
-`ansible all --key-file ~/.ssh/<ansible_keyname> -i inventory -m ping`
+**`ansible all --key-file ~/.ssh/<ansible_keyname> -i inventory -m ping`**
 
 -   `--key-file <path>`: ssh private_key file.
 -   `-i <filename>`: inventory file with IP addresses of all machines.
@@ -25,3 +25,11 @@ specifying the `--key-file` and `-i` parameters is not necessary anymore because
 ### Gathering system information of all hosts
 -   `ansible all -m gather_facts`: will gather all the facts about every machine in the `inventory` file.
 -   `--limit <IP-address>` parameter will only list the facts about the specified machine.
+
+## Commands
+### Example sudo update
+**`ansible all -m apt -a update_cache=true --become --ask-become-pass`**
+-   `-m apt`: use `apt` module.*
+-   `-a update_cache=true`: argument that needs to be used, in this case it's the `update` argument.
+-   `--become`: the equivalent of `sudo` on your own machine.
+-   `--ask-become-pass`: this parameter will ask you the sudo password of the remote machines.
