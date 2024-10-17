@@ -27,9 +27,30 @@ specifying the `--key-file` and `-i` parameters is not necessary anymore because
 -   `--limit <IP-address>` parameter will only list the facts about the specified machine.
 
 ## Commands
-### Example sudo update
+### Example sudo apt-get update
 **`ansible all -m apt -a update_cache=true --become --ask-become-pass`**
 -   `-m apt`: use `apt` module.*
--   `-a update_cache=true`: argument that needs to be used, in this case it's the `update` argument.
+-   `-a update_cache=true`: argument that needs to be used, in this case it's the `update` argument. This will run the equivalent of `apt-get update` before the operation
+-   `--become`: the equivalent of `sudo` on your own machine.
+-   `--ask-become-pass`: this parameter will ask you the sudo password of the remote machines.
+
+### Install a package on all machines
+**`ansible all -m apt -a name=vim-nox --become --ask-become-pass`**
+-   `-m apt`: use `apt` module.*
+-   `-a name=<package_name>`: Give the package name `apt` needs to install. 
+-   `--become`: the equivalent of `sudo` on your own machine.
+-   `--ask-become-pass`: this parameter will ask you the sudo password of the remote machines.
+
+### Update existing package
+**`ansible all -m apt -a "name=vim-nox state=latest" --become --ask-become-pass`**
+-   `-m apt`: use `apt` module.*
+-   `-a "name=<package_name> state=latest"`: Gives the package name and state `apt` needs to install. 
+-   `--become`: the equivalent of `sudo` on your own machine.
+-   `--ask-become-pass`: this parameter will ask you the sudo password of the remote machines.
+
+### Update all packages
+**`ansible all -m apt -a "upgrade=dist" --become --ask-become-pass`**
+-   `-m apt`: use `apt` module.*
+-   `-a "upgrade=dist"`: Tells `apt` to update all packages.
 -   `--become`: the equivalent of `sudo` on your own machine.
 -   `--ask-become-pass`: this parameter will ask you the sudo password of the remote machines.
