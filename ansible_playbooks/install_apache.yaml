@@ -12,3 +12,10 @@
     apt:
       name: apache2
       state: latest
+
+  - name: install apache2 package
+    apt:
+      name:
+        - apache2
+        - libapache-mod-php
+      state: latest

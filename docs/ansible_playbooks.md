@@ -2,6 +2,7 @@
 ### Example playbook
 ```
 #install_apache.yaml
+
 - hosts: all
   become: true
   tasks:
@@ -22,6 +23,8 @@ Indentation is very important in `.yaml.` files. every Tab needs to be 2 spaces.
 We'll divide the codeblock in two pieces:
 <br /><br />
 ```
+#install_apache.yaml
+
 - hosts: all
   become: true
   tasks:state: latest
@@ -33,6 +36,8 @@ We'll divide the codeblock in two pieces:
 <br /><br />
 
 ```
+#install_apache.yaml
+
   - name: update repository index
     apt:
       update_cache: yes
@@ -51,6 +56,21 @@ We'll divide the codeblock in two pieces:
 <br /><br />
 
 **You can add as much tasks as you like!**
+<br /><br />
+
+### Adding multiple packages to install in one task
+```
+#install_apache.yaml
+
+      name:
+        - apache2
+        - libapache-mod-php
+```
+
+-   `name:` stays on the same location
+-   packages can be added by typing them each on a separate line starting with `-`
+
+<br /><br />
 
 ### Run a playbook
 **`ansible-playbook --ask-become-pass install_apache.yaml`**
@@ -63,6 +83,7 @@ We'll divide the codeblock in two pieces:
 ### Example playbook
 ```
 #remove_apache.yaml
+
 ---
 
 - hosts: all
@@ -78,3 +99,23 @@ We'll divide the codeblock in two pieces:
 
 ### Remove package
 -   `state: absent`: Will remove the given package(s) from all machines. In this case `apache2` will be removed
+<br /><br />
+
+## The `when` statement
+you will only run the task if the statement after `when:` is true.
+
+`when: ansible_distribution == "Ubuntu"`
+-   `Ansible_distribution`: this is the variable that contains the distro name of the target machine.
+-   It will only execute the task if the target machine's distro is `Ubuntu`
+<br /><br />
+
+### Multiple values in the shape of an array
+`when: ansible_distribution == ["Debian", "Ubuntu"]`
+-   `["Debian", "Ubuntu"]` is an array of strings. in this case these are the possible values `ansible_distribution`.
+-   if the target machine's distro is `Debian` or `Ubuntu` then the task will run on that machine.
+<br /><br />
+
+### Adding multiple conditions with `and`
+`when: ansible_distribution == ["Debian", "Ubuntu"] and ansible_distribution_version = "8.2"`
+-   The statement above will check if the distro is `Debian` or `Ubuntu` **AND** if if the distro version is "8.2" with `ansible_distribution_version = "8.2"`.
+-   Both conditions have to be true to run the task.
